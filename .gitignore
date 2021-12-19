@@ -1,0 +1,22 @@
+# for scala
+target
+*.class
+# for idea
+*.iml
+*.ipr
+*.iws
+.idea
+out
+# for vim
+tags
+.*.swp
+.*.swo
+# for Eclipse
+build
+.classpath
+.project
+.settings
+org.scala-ide.sdt.core/META-INF/MANIFEST.MF
+org.scala-ide.sdt.update-site/site.xml`
+# for macOS
+.DS_Store
