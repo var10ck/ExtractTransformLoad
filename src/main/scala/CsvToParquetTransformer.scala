@@ -1,6 +1,6 @@
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession, SaveMode}
 import org.apache.spark.sql.functions._
 
 import scala.io.Source
@@ -14,27 +14,35 @@ object CsvToParquetTransformer extends App {
       .getOrCreate()
 
     spark.sparkContext.setLogLevel("ERROR")
-    val df = spark.read
-      .option("multiline", "true")
-      .json("data_files\\Json\\SchemaSample.json")
-      .cache()
-    df.printSchema()
-    df.show(false)
 
-    //Define custom schema
+    //Read schema from file
     val schemaFromJson = makeSchemaFromJson("data_files\\Json\\CoursesSchema.json")
-    val df2 = spark.read.schema(schemaFromJson)
+    //create DF from csv
+    val df = spark.read.schema(schemaFromJson)
       .option("header", "true")
       .option("sep", ";")
       .csv("data_files\\csv\\Courses.csv")
       .cache()
-    df2.printSchema()
-    df2.show()
+    df.printSchema()
+    df.show()
+
+    df.write.partitionBy("RateDate")
+      .option("compression", "none")
+      .mode(SaveMode.Overwrite)
+      .parquet("data_files\\parquet\\Courses.parquet")
+
+//    val parqDF = spark.read.parquet("data_files\\parquet\\Courses.parquet")
+//    parqDF.createOrReplaceTempView("Courses")
+//    val sparkSQLRequest = spark.sql("select * from Courses")
+//    sparkSQLRequest.explain()
+//    sparkSQLRequest.show()
+//    sparkSQLRequest.printSchema()
+
+
   }
 
   /**
    * Parsing schema from JSON file
-   *
    * @param pathToJson path to JSON file with schema definition
    * @return Schema, parsed from given file
    **/
