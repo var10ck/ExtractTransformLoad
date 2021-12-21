@@ -9,7 +9,7 @@
     },
     {
       "name": "Rate",
-      "type": "float",
+      "type": "string",
       "nullable": true,
       "metadata": {}
     },

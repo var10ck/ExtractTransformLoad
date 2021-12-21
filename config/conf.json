@@ -1,0 +1,19 @@
+{
+  "tables": [
+    {
+      "name": "Courses",
+      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Courses.csv"
+    },
+    {
+      "name": "Operations",
+      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Operations.csv"
+    },
+    {
+      "name": "Accounts",
+      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Accounts.csv"
+    },{
+      "name": "Clients",
+      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Clients.csv"
+    }
+  ]
+}
