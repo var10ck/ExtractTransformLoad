@@ -1,0 +1,41 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "AccountDB",
+      "type": "integer",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "AccountCR",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "DateOp",
+      "type": "date",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "Amount",
+      "type": "float",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "Currency",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "Comment",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    }
+  ]
+}

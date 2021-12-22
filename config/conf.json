@@ -1,19 +1,37 @@
 {
+  "pathToWriteParquet": "data_files\\parquet",
   "tables": [
     {
-      "name": "Courses",
-      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Courses.csv"
+      "name": "Rate",
+      "path": "data_files\\csv\\Courses.csv",
+      "schema": "data_files\\json\\CoursesSchema.json",
+      "sep": ";",
+      "dateFormat": "yyyy-MM-dd",
+      "partitionBy": ["RateDate"]
     },
     {
-      "name": "Operations",
-      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Operations.csv"
+      "name": "Operation",
+      "path": "data_files\\csv\\Operations.csv",
+      "schema": "data_files\\json\\OperationsSchema.json",
+      "sep": ";",
+      "dateFormat": "yyyy-MM-dd",
+      "partitionBy": ["DateOp"]
     },
     {
-      "name": "Accounts",
-      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Accounts.csv"
-    },{
-      "name": "Clients",
-      "path": "F:\\scala_projects\\ExtractTransformLoad\\data_files\\csv\\Clients.csv"
+      "name": "Account",
+      "path": "data_files\\csv\\Accounts.csv",
+      "schema": "data_files\\json\\AccountsSchema.json",
+      "sep": ";",
+      "dateFormat": "yyyy-MM-dd",
+      "partitionBy": ["DateOpen"]
+    },
+    {
+      "name": "Client",
+      "path": "data_files\\csv\\Clients.csv",
+      "schema": "data_files\\json\\ClientsSchema.json",
+      "sep": ";",
+      "dateFormat": "dd.MM.yyyy",
+      "partitionBy": ["RegisterDate"]
     }
   ]
 }
