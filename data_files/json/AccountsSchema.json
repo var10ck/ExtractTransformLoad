@@ -9,7 +9,7 @@
     },
     {
       "name": "AccountNum",
-      "type": "string",
+      "type": "decimal(20, 0)",
       "nullable": true,
       "metadata": {}
     },

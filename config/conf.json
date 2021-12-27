@@ -1,5 +1,5 @@
 {
-  "pathToWriteParquet": "data_files\\parquet",
+  "defaultPathToWriteParquet": "data_files\\parquet",
   "tables": [
     {
       "name": "Rate",
@@ -7,7 +7,9 @@
       "schema": "data_files\\json\\CoursesSchema.json",
       "sep": ";",
       "dateFormat": "yyyy-MM-dd",
-      "partitionBy": ["RateDate"]
+      "partitionBy": ["RateDate"],
+      "compressionMethod": "none",
+      "pathToWrite": ""
     },
     {
       "name": "Operation",
@@ -15,7 +17,9 @@
       "schema": "data_files\\json\\OperationsSchema.json",
       "sep": ";",
       "dateFormat": "yyyy-MM-dd",
-      "partitionBy": ["DateOp"]
+      "partitionBy": ["DateOp"],
+      "compressionMethod": "none",
+      "pathToWrite": ""
     },
     {
       "name": "Account",
@@ -23,7 +27,9 @@
       "schema": "data_files\\json\\AccountsSchema.json",
       "sep": ";",
       "dateFormat": "yyyy-MM-dd",
-      "partitionBy": ["DateOpen"]
+      "partitionBy": ["DateOpen"],
+      "compressionMethod": "none",
+      "pathToWrite": ""
     },
     {
       "name": "Client",
@@ -31,7 +37,9 @@
       "schema": "data_files\\json\\ClientsSchema.json",
       "sep": ";",
       "dateFormat": "dd.MM.yyyy",
-      "partitionBy": ["RegisterDate"]
+      "partitionBy": ["RegisterDate"],
+      "compressionMethod": "none",
+      "pathToWrite": ""
     }
   ]
 }

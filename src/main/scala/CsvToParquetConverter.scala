@@ -22,42 +22,17 @@ object CsvToParquetConverter extends App {
     val conf: ConfigReader.Config = ConfigReader.readConfig(pathToConfig)
 
     spark.sparkContext.setLogLevel("ERROR")
-    
+
     for (table <- conf.tables) {
       //Read schema from file
       val schemaFromJson = makeSchemaFromJson(table.schema)
       //create DF from csv
-      val df = spark.read.schema(schemaFromJson)
-        .option("header", "true")
-        .option("dateFormat", table.dateFormat)
-        .option("sep", table.sep)
-        .csv(table.path)
+      val df = readCsvWithConfig(spark, table)
         .cache()
-//      df.printSchema()
-//      df.show()
-      df.write.partitionBy(table.partitionByField:_*)
-        .option("compression", "none")
-        .mode(SaveMode.Overwrite)
-        .parquet(s"data_files\\parquet\\${table.name}.parquet")
+      // write df to parquet format
+      writeDfToParquet(df, table, conf, SaveMode.Overwrite)
     }
-    //    //Read schema from file
-    //    val schemaFromJson = makeSchemaFromJson("data_files\\json\\AccountsSchema.json")
-    //    //create DF from csv
-    ////
-    //    val df = spark.read.schema(schemaFromJson)
-    //      .option("header", "true")
-    //      .option("dateFormat", "yyyy-MM-dd")
-    //      .option("sep", ";")
-    //      .csv("data_files\\csv\\Accounts.csv")
-    //      .cache()
-    //    df.printSchema()
-    //    df.show()
 
-
-    //    df.write.partitionBy("RateDate")
-    //      .option("compression", "none")
-    //      .mode(SaveMode.Overwrite)
-    //    //      .parquet("data_files\\parquet\\Courses.parquet")
     //
     //    val parqDF = spark.read.parquet("data_files\\parquet\\Courses.parquet")
     //    parqDF.createOrReplaceTempView("Courses")
@@ -82,4 +57,27 @@ object CsvToParquetConverter extends App {
     DataType.fromJson(jsonString).asInstanceOf[StructType]
   }
 
+  def readCsvWithConfig(spark: SparkSession,
+                        tableConf: ConfigReader.Table,
+                        headerOption: String = "true"): DataFrame = {
+    //Read schema from file
+    val schemaFromJson = makeSchemaFromJson(tableConf.schema)
+    //create DF from csv
+    spark.read.schema(schemaFromJson)
+      .option("header", headerOption)
+      .option("dateFormat", tableConf.dateFormat)
+      .option("sep", tableConf.sep)
+      .csv(tableConf.path)
+  }
+
+  def writeDfToParquet(df: DataFrame,
+                       tableConf: ConfigReader.Table,
+                       conf: ConfigReader.Config,
+                       saveMode: SaveMode = SaveMode.Overwrite): Unit = {
+    val writeTo = if (tableConf.pathToWrite.isBlank) conf.defaultPathToWriteParquet else tableConf.pathToWrite
+    df.write.partitionBy(tableConf.partitionByField: _*)
+      .option("compression", tableConf.compressionMethod)
+      .mode(saveMode)
+      .parquet(s"$writeTo\\${tableConf.name}.parquet")
+  }
 }
