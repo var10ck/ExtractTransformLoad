@@ -1,14 +1,9 @@
-import java.util.Locale
+package t1consulting
 
-import ConfigReader.Config
-import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types._
+import org.apache.spark.sql.types.{DataType, StructType}
 import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types._
 
 import scala.io.Source
-
 
 object CsvToParquetConverter extends App {
   override def main(args: Array[String]): Unit = {
@@ -33,14 +28,6 @@ object CsvToParquetConverter extends App {
       writeDfToParquet(df, table, conf, SaveMode.Overwrite)
     }
 
-    //
-    //    val parqDF = spark.read.parquet("data_files\\parquet\\Courses.parquet")
-    //    parqDF.createOrReplaceTempView("Courses")
-    //    val sparkSQLRequest = spark.sql("select * from Courses")
-    //    sparkSQLRequest.explain()
-    //    sparkSQLRequest.show()
-    //    sparkSQLRequest.printSchema()
-    //    df.show()
 
   }
 

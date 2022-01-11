@@ -4,7 +4,7 @@
     {
       "name": "Rate",
       "path": "data_files\\csv\\Courses.csv",
-      "schema": "data_files\\json\\CoursesSchema.json",
+      "schema": "data_files\\json\\RateSchema.json",
       "sep": ";",
       "dateFormat": "yyyy-MM-dd",
       "partitionBy": ["RateDate"],

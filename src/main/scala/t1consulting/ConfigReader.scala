@@ -1,11 +1,9 @@
-import org.apache.spark.sql
-import org.apache.spark.sql.SparkSession
-import org.json4s.JsonAST.JValue
-import org.json4s._
-import org.json4s.jackson.JsonMethods._
+package t1consulting
+
+import org.json4s.jackson.JsonMethods.parse
+import org.json4s.{DefaultFormats, Formats}
 
 import scala.io.Source
-
 
 object ConfigReader {
   def main(args: Array[String]): Unit = {

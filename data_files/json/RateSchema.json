@@ -9,7 +9,7 @@
     },
     {
       "name": "Rate",
-      "type": "float",
+      "type": "decimal(15, 2)",
       "nullable": true,
       "metadata": {}
     },
